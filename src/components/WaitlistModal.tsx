@@ -197,12 +197,16 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     const metadata = getMetadata();
     const utmParams = getUTMParams();
 
+    // Get raw phone digits and combine with country code
+    const rawPhone = formData.phoneNumber.replace(/\D/g, "");
+    const fullPhone = `${formData.countryCode}${rawPhone}`;
+
     const payload = {
       email: formData.email,
       firstName: formData.firstName,
       lastName: formData.lastName,
       companyName: formData.companyName,
-      phone: `${formData.countryCode} ${formData.phoneNumber}`,
+      phone: fullPhone,
       locations: formData.locations,
       package: getRecommendedPlan(),
       ip: ipAddress,
