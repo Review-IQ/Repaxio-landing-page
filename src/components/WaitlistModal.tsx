@@ -1,5 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRCYy0MVuYEWRTo5UqCSJfNZczkPSe7FAw9GLdAVMTUm-7bZu1dN5te0NuI6KMwHFz/exec";
+
+// Get UTM parameters from URL
+const getUTMParams = () => {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utmSource: params.get("utm_source") || "",
+    utmMedium: params.get("utm_medium") || "",
+    utmCampaign: params.get("utm_campaign") || "",
+  };
+};
+
+// Get user metadata
+const getMetadata = () => {
+  return {
+    userAgent: navigator.userAgent,
+    referrer: document.referrer || "direct",
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    language: navigator.language,
+    screenResolution: `${window.screen.width}x${window.screen.height}`,
+    pageUrl: window.location.href,
+  };
+};
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -16,6 +40,7 @@ interface FormData {
   countryCode: string;
   phoneNumber: string;
   locations: string;
+  website: string; // Honeypot field - should always be empty
 }
 
 interface FormErrors {
@@ -78,6 +103,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [ipAddress, setIpAddress] = useState<string>("");
   const [formData, setFormData] = useState<FormData>({
     email: "",
     firstName: "",
@@ -86,7 +112,16 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     countryCode: "+1",
     phoneNumber: "",
     locations: "",
+    website: "", // Honeypot - bots will fill this, humans won't see it
   });
+
+  // Fetch IP address on mount
+  useEffect(() => {
+    fetch("https://api.ipify.org?format=json")
+      .then((res) => res.json())
+      .then((data) => setIpAddress(data.ip))
+      .catch(() => setIpAddress("unknown"));
+  }, []);
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -158,14 +193,57 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     return true;
   };
 
+  const submitToGoogleSheets = async () => {
+    const metadata = getMetadata();
+    const utmParams = getUTMParams();
+
+    const payload = {
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      companyName: formData.companyName,
+      phone: `${formData.countryCode} ${formData.phoneNumber}`,
+      locations: formData.locations,
+      package: getRecommendedPlan(),
+      ip: ipAddress,
+      ...metadata,
+      ...utmParams,
+    };
+
+    try {
+      // Using no-cors mode since Google Apps Script doesn't support CORS properly
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      return true;
+    } catch (error) {
+      console.error("Error submitting to Google Sheets:", error);
+      return false;
+    }
+  };
+
   const handleNextStep = async () => {
+    // Honeypot check - if filled, it's a bot
+    if (formData.website) {
+      // Silently "succeed" to not alert the bot
+      setStep(4);
+      return;
+    }
+
     if (step === 1 && !validateStep1()) return;
     if (step === 2 && !validateStep2()) return;
     if (step === 3) {
       if (!validateStep3()) return;
       setIsLoading(true);
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Submit to Google Sheets
+      await submitToGoogleSheets();
+
       setIsLoading(false);
       setStep(4);
       return;
@@ -188,6 +266,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
         countryCode: "+1",
         phoneNumber: "",
         locations: "",
+        website: "",
       });
     }, 300);
   };
@@ -309,6 +388,29 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                     </div>
 
                     <div className="space-y-4">
+                      {/* Honeypot field - hidden from humans, visible to bots */}
+                      <div
+                        aria-hidden="true"
+                        style={{
+                          position: "absolute",
+                          left: "-9999px",
+                          top: "-9999px",
+                          opacity: 0,
+                          pointerEvents: "none",
+                        }}
+                      >
+                        <label htmlFor="website">Website</label>
+                        <input
+                          type="text"
+                          id="website"
+                          name="website"
+                          value={formData.website}
+                          onChange={(e) => handleInputChange("website", e.target.value)}
+                          tabIndex={-1}
+                          autoComplete="off"
+                        />
+                      </div>
+
                       <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                           Work Email
