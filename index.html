@@ -7,26 +7,42 @@
 
     <!-- SEO Meta Tags -->
     <title>Repaxio - AI-Powered Reputation Management for Local Businesses</title>
-    <meta name="description" content="Turn every customer into a 5-star review. Repaxio helps local businesses collect more reviews, respond instantly with AI, and outrank competitors at a fraction of the cost." />
-    <meta name="keywords" content="reputation management, review management, AI responses, local business, reviews, Google reviews, Yelp, customer feedback" />
+    <meta name="description" content="Transform your online reputation with AI-powered review management. Monitor, respond, and grow your presence across all platforms—all in one intelligent platform." />
+    <meta name="keywords" content="reputation management, review management, AI responses, local business, reviews, Google reviews, Yelp, customer feedback, AI automation" />
+    <meta name="author" content="Repaxio" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Repaxio - AI-Powered Reputation Management" />
-    <meta property="og:description" content="Turn every customer into a 5-star review. Collect more reviews, respond instantly with AI, and grow your business." />
+    <meta property="og:title" content="Repaxio - Transform Your Online Reputation" />
+    <meta property="og:description" content="AI-powered reputation management that helps local businesses monitor, respond to, and grow their online presence." />
     <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content="https://repaxio.com" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Repaxio - AI-Powered Reputation Management" />
-    <meta name="twitter:description" content="Turn every customer into a 5-star review. Collect more reviews, respond instantly with AI, and grow your business." />
+    <meta name="twitter:title" content="Repaxio - Transform Your Online Reputation" />
+    <meta name="twitter:description" content="AI-powered reputation management that helps local businesses monitor, respond to, and grow their online presence." />
 
-    <!-- Fonts -->
+    <!-- Fonts - Inter for modern SaaS look -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#0f172a" />
   </head>
   <body>
+    <script>
+      // Apply dark mode class immediately to prevent flash
+      (function() {
+        const savedMode = localStorage.getItem("darkMode");
+        if (savedMode === "false") {
+          document.documentElement.classList.add("light");
+        } else {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

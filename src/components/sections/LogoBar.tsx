@@ -1,62 +1,25 @@
 import { motion } from "framer-motion";
 
-const logos = [
-  { name: "Google", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-    </svg>
-  )},
-  { name: "Yelp", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M21.111 18.226c-.141.969-2.119 3.483-2.459 3.741-.4.3-.81.3-1.21.1l-3.719-2.251c-.4-.3-.6-.7-.5-1.2l.5-1.75c.1-.5.5-.9 1-.9l4.319.15c.67.05.97.35 1.07 1.06v1.05zm-9.61-1.65l-3.38-2.65c-.4-.3-.5-.8-.3-1.3l.7-1.6c.2-.5.6-.8 1.1-.7l4.35 1.05c.6.15.9.5.9 1.1v.05c.05.95-2.5 3.75-2.9 4.1-.35.3-.77.3-1.17.05l-.3-.1zm1.27-8.42l-4.18 1.3c-.55.15-1-.1-1.2-.6l-.65-1.65c-.2-.5-.05-1 .35-1.35l3.35-2.75c.45-.4.95-.35 1.35.15l2.2 3.8c.3.5.15 1-.3 1.2l-.92-.1zm-7.45 3.75l-3.4 2.75c-.45.35-.45.85-.15 1.3l.85 1.55c.3.45.75.6 1.25.4l4.15-1.5c.55-.2.8-.65.7-1.2v-.05c-.15-.95-2.4-3.55-2.8-3.8-.35-.25-.85-.15-1.2.25l-.4.3zm4.47-9.78c.3-.5.8-.65 1.3-.4l1.6.75c.5.25.7.7.55 1.2l-1.2 4.2c-.15.55-.55.85-1.1.8h-.05c-.95-.1-3.65-2.55-3.9-2.95-.2-.35-.1-.8.3-1.15l2.5-2.45z"/>
-    </svg>
-  )},
-  { name: "Facebook", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-    </svg>
-  )},
-  { name: "TripAdvisor", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 6 6 0 0 0 6-5.998 5.982 5.982 0 0 0-1.957-4.432L24 6.648h-4.35a13.573 13.573 0 0 0-7.644-2.353zM6.003 17.208a3.997 3.997 0 1 1 0-7.993 3.997 3.997 0 0 1 0 7.993zm11.994 0a3.997 3.997 0 1 1 0-7.994 3.997 3.997 0 0 1 0 7.994zM6.003 11.217a2 2 0 1 0 0 3.999 2 2 0 0 0 0-4zm11.994 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
-    </svg>
-  )},
-  { name: "Square", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M4.01 0A3.998 3.998 0 0 0 .014 4v16c0 2.209 1.79 4 3.996 4H20c2.206 0 3.996-1.791 3.996-4V4c0-2.209-1.79-4-3.996-4H4.01zM8.007 4.008h7.986a4 4 0 0 1 3.999 4v7.986a4 4 0 0 1-4 3.998H8.008a4 4 0 0 1-3.999-3.998V8.008a4 4 0 0 1 3.998-4z"/>
-    </svg>
-  )},
-  { name: "Toast", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M20.485 1.515H3.515A1.515 1.515 0 0 0 2 3.03v17.94a1.515 1.515 0 0 0 1.515 1.515h16.97A1.515 1.515 0 0 0 22 21V3.03a1.515 1.515 0 0 0-1.515-1.515zM12 18.182a6.182 6.182 0 1 1 0-12.364 6.182 6.182 0 0 1 0 12.364z"/>
-    </svg>
-  )},
-  { name: "Twilio", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M12 0C5.381 0 0 5.381 0 12s5.381 12 12 12 12-5.381 12-12S18.619 0 12 0zm0 20.25c-4.556 0-8.25-3.694-8.25-8.25S7.444 3.75 12 3.75s8.25 3.694 8.25 8.25-3.694 8.25-8.25 8.25zm3.938-10.125a2.062 2.062 0 1 1-4.125 0 2.062 2.062 0 0 1 4.125 0zm-5.813 0a2.062 2.062 0 1 1-4.125 0 2.062 2.062 0 0 1 4.125 0zm5.813 4.5a2.062 2.062 0 1 1-4.125 0 2.062 2.062 0 0 1 4.125 0zm-5.813 0a2.062 2.062 0 1 1-4.125 0 2.062 2.062 0 0 1 4.125 0z"/>
-    </svg>
-  )},
-  { name: "WhatsApp", svg: (
-    <svg viewBox="0 0 24 24" className="w-full h-full" fill="currentColor">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-  )},
+const platforms = [
+  { name: "Google", color: "#4285F4" },
+  { name: "Yelp", color: "#FF1A1A" },
+  { name: "Facebook", color: "#1877F2" },
+  { name: "TripAdvisor", color: "#34E0A1" },
+  { name: "Trustpilot", color: "#00B67A" },
+  { name: "Apple Maps", color: "#000000" },
 ];
 
 export function LogoBar() {
   return (
-    <section className="py-16 bg-white border-y border-slate-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="logo-bar" className="py-16 bg-slate-50/50 dark:bg-slate-900/50 border-y border-slate-200/50 dark:border-slate-800/50">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center text-sm text-slate-500 mb-8"
+          className="text-center text-sm text-slate-500 dark:text-slate-400 mb-8"
         >
-          Integrates with the platforms you already use
+          Monitors and manages reviews across all major platforms
         </motion.p>
 
         <motion.div
@@ -66,17 +29,51 @@ export function LogoBar() {
           transition={{ duration: 0.5 }}
           className="flex flex-wrap justify-center items-center gap-8 md:gap-12"
         >
-          {logos.map((logo, index) => (
+          {platforms.map((platform, index) => (
             <motion.div
-              key={logo.name}
+              key={platform.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="w-10 h-10 text-slate-400 hover:text-slate-600 transition-colors duration-200"
-              title={logo.name}
+              whileHover={{ scale: 1.1, y: -5 }}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 cursor-pointer transition-all duration-200 hover:shadow-md"
             >
-              {logo.svg}
+              <div
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: platform.color }}
+              />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                {platform.name}
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Stats Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8"
+        >
+          {[
+            { value: "50K+", label: "Reviews Managed" },
+            { value: "500+", label: "Happy Businesses" },
+            { value: "4.9/5", label: "Customer Rating" },
+            { value: "< 1min", label: "AI Response Time" },
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 + index * 0.1 }}
+              className="text-center"
+            >
+              <p className="text-2xl md:text-3xl font-bold text-gradient">{stat.value}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>

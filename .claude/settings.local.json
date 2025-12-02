@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(powershell:*)",
+      "Bash(taskkill /PID 58636 /F)",
+      "Bash(npm run build)",
+      "Bash(npm run dev:*)",
+      "Bash(dir \"C:\\myStuff\\CompanyPage\\src\" /b)",
+      "WebSearch",
+      "WebFetch(domain:www.prefinery.com)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
