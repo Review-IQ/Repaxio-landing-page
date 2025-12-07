@@ -3,9 +3,9 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const faqItems = [
   {
-    question: "How is Repaxio different from Birdeye, Podium, or Reputation.com?",
+    question: "How is Repaxio different from other reputation management tools?",
     answer:
-      "These enterprise platforms charge $249-$600/month with mandatory annual contracts and setup fees. Repaxio delivers the same AI-powered features starting at just $49/month with no contracts, no setup fees, and cancel anytime. We're purpose-built for small and mid-size local businesses who need enterprise-grade tools without the enterprise price tag.",
+      "Enterprise platforms typically charge $249-$600/month with mandatory annual contracts and setup fees. Repaxio delivers the same AI-powered features starting at just $49/month with no contracts, no setup fees, and cancel anytime. We're purpose-built for small and mid-size local businesses who need enterprise-grade tools without the enterprise price tag.",
   },
   {
     question: "How do I get early access?",
@@ -40,7 +40,7 @@ const faqItems = [
   {
     question: "Do you require long-term contracts?",
     answer:
-      "Never. All Repaxio plans are month-to-month with no cancellation fees or penalties. Unlike Birdeye, Podium, and others that lock you into 12-month contracts, we believe you should stay because our product delivers value, not because you're stuck.",
+      "Never. All Repaxio plans are month-to-month with no cancellation fees or penalties. Unlike other platforms that lock you into 12-month contracts, we believe you should stay because our product delivers value, not because you're stuck.",
   },
   {
     question: "What's the difference between USA and India pricing?",

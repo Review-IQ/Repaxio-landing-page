@@ -5,50 +5,42 @@ const comparisonData = [
   {
     feature: "Starting Price",
     repaxio: "$49/mo",
-    birdeye: "$299/mo",
-    podium: "$300/mo",
+    others: "$299-399/mo",
   },
   {
     feature: "AI Responses",
     repaxio: true,
-    birdeye: "Add-on",
-    podium: "Higher tiers",
+    others: "Add-on / Higher tiers",
   },
   {
     feature: "Contracts",
     repaxio: "None",
-    birdeye: "Annual",
-    podium: "Annual",
+    others: "Annual",
   },
   {
     feature: "Setup Time",
     repaxio: "Minutes",
-    birdeye: "Weeks",
-    podium: "Weeks",
+    others: "Weeks",
   },
   {
     feature: "Multi-location",
     repaxio: true,
-    birdeye: true,
-    podium: true,
+    others: true,
   },
   {
     feature: "WhatsApp Support",
     repaxio: true,
-    birdeye: false,
-    podium: false,
+    others: false,
   },
   {
     feature: "POS Integration",
     repaxio: true,
-    birdeye: true,
-    podium: true,
+    others: true,
   },
   {
     feature: "Cancel Anytime",
     repaxio: true,
-    birdeye: false,
-    podium: false,
+    others: false,
   },
 ];
 
@@ -67,7 +59,7 @@ function FeatureValue({ value }: { value: boolean | string }) {
       </div>
     );
   }
-  if (typeof value === "string" && (value === "Add-on" || value === "Higher tiers")) {
+  if (typeof value === "string" && (value === "Add-on" || value === "Higher tiers" || value === "Add-on / Higher tiers")) {
     return (
       <div className="flex items-center gap-1">
         <Minus className="w-4 h-4 text-slate-400" />
@@ -110,16 +102,13 @@ export function Comparison() {
           className="bg-white rounded-2xl card-shadow overflow-hidden"
         >
           {/* Table Header */}
-          <div className="grid grid-cols-4 gap-4 p-6 bg-slate-50 border-b border-slate-100">
+          <div className="grid grid-cols-3 gap-4 p-6 bg-slate-50 border-b border-slate-100">
             <div className="font-semibold text-slate-600">Feature</div>
             <div className="text-center">
               <span className="font-bold text-primary-700">Repaxio</span>
             </div>
             <div className="text-center">
-              <span className="font-medium text-slate-500">Birdeye</span>
-            </div>
-            <div className="text-center">
-              <span className="font-medium text-slate-500">Podium</span>
+              <span className="font-medium text-slate-500">Other Tools</span>
             </div>
           </div>
 
@@ -131,7 +120,7 @@ export function Comparison() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className={`grid grid-cols-4 gap-4 p-6 items-center ${
+              className={`grid grid-cols-3 gap-4 p-6 items-center ${
                 index % 2 === 0 ? "bg-white" : "bg-slate-50/50"
               }`}
             >
@@ -142,10 +131,7 @@ export function Comparison() {
                 <FeatureValue value={row.repaxio} />
               </div>
               <div className="flex justify-center">
-                <FeatureValue value={row.birdeye} />
-              </div>
-              <div className="flex justify-center">
-                <FeatureValue value={row.podium} />
+                <FeatureValue value={row.others} />
               </div>
             </motion.div>
           ))}

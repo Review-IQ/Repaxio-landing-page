@@ -286,7 +286,7 @@ const problems = [
     illustration: <ExpensiveToolsIllustration />,
     title: "Enterprise tools cost a fortune",
     description:
-      "Birdeye wants $400/month. Podium wants $500. Your budget simply says no to these prices.",
+      "Enterprise platforms charge $400-500/month per location. Your budget simply says no to these prices.",
   },
   {
     illustration: <NoCampaignsIllustration />,

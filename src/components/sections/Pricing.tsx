@@ -369,7 +369,7 @@ export function Pricing() {
           <div className="inline-flex items-center gap-3 glass-morphism rounded-full px-6 py-3 border border-primary-500/20">
             <span className="text-2xl">💰</span>
             <span className="text-primary-600 dark:text-primary-400 font-medium">
-              Save 60-80% compared to Birdeye & Podium
+              Save 60-80% compared to enterprise tools
             </span>
           </div>
         </motion.div>
